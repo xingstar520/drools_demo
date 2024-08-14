@@ -1,0 +1,66 @@
+//订单积分规则
+package com.nianxi.drools_demo.order
+import com.nianxi.drools_demo.model.Order1
+
+global com.nianxi.drools_demo.model.Integral integral;
+
+//规则一：100元以下 不加分
+rule "order_rule_1"
+    no-loop true         //防止陷入死循环
+    when
+        $order:Order1(amount < 100)
+    then
+        integral.setScore(10);
+        update($order)
+        System.out.println("成功匹配到规则一：100元以下 不加分");
+end
+//
+////规则一：100元以下 不加分
+//rule "order_rule_1"
+//    salience 1
+//    when
+//        $order:Order(amount < 100)
+//    then
+//        $order.setScore(0);
+//        System.out.println("成功匹配到规则一：100元以下 不加分");
+//end
+//
+////规则二：100元 - 500元 加100分
+//rule "order_rule_2"
+//    salience 3
+//    when
+//        $order:Order(amount >= 100 && amount < 500)
+//    then
+//         $order.setScore(100);
+//         System.out.println("成功匹配到规则二：100元 - 500元 加100分");
+//end
+//
+////规则三：500元 - 1000元 加500分
+//rule "order_rule_3"
+//    salience 2
+//    when
+//        $order:Order(amount >= 500 && amount < 1000)
+//    then
+//         $order.setScore(500);
+//         System.out.println("成功匹配到规则三：500元 - 1000元 加500分");
+//end
+//
+////规则四：1000元以上 加1000分
+//rule "order_rule_4"
+//    salience 4
+//    when
+//        $order:Order(amount >= 1000 && amount < 5000)
+//    then
+//         $order.setScore(1000);
+//         System.out.println("成功匹配到规则四：1000元 - 5000元 加1000分");
+//end
+//
+////规则五：5000元以上 加5000分
+//rule "order_rule_5"
+//    salience 5
+//     when
+//         $order:Order(amount>=5000)
+//     then
+//         retract($order)
+//         System.out.println("成功匹配到规则五：5000元以上 加5000分");
+//end
